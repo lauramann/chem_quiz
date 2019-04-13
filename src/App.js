@@ -21,16 +21,14 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.verifyUser = this.verifyUser.bind(this);
-    this.writeUserData = this.writeUserData.bind(this)
+    this.writeInitialUserData = this.writeInitialUserData.bind(this)
   }
 
   writeInitialUserData(email) {
     let userName = email.split('@')[0]
     let userRef = usersRef.child(userName)
-    userRef.set({isFaculty: false});
+    userRef.update({isFaculty: false});
   }
-
-
 
   verifyUser() {
     if (this.props.user && this.props.user.email.endsWith("@trentu.ca")) {
