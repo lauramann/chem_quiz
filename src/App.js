@@ -15,40 +15,40 @@ const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
 var database = firebase.database();
-var ref = database.ref("trent-chemistry");
+var usersRef = database.ref("users");
 
 class App extends Component {
   constructor(props) {
     super(props);
-  this.verifyUser = this.verifyUser.bind(this);
-  this.writeUserData = this.writeUserData.bind(this)
+    this.verifyUser = this.verifyUser.bind(this);
+    this.writeUserData = this.writeUserData.bind(this)
   }
 
-  writeUserData(email) {
-    var usersRef = ref.child("users");
-usersRef.set({
-    email: email,
-});
+  writeInitialUserData(email) {
+    let userName = email.split('@')[0]
+    let userRef = usersRef.child(userName)
+    userRef.set({isFaculty: false});
   }
-  
+
+
 
   verifyUser() {
-    if(this.props.user && this.props.user.email.endsWith("@trentu.ca")) { 
+    if (this.props.user && this.props.user.email.endsWith("@trentu.ca")) {
 
-      this.writeUserData(this.props.user.email)      
-        return(
-          <div>
-        <Button variant="contained" color="primary"onClick={this.props.signOut}>Sign out</Button>
-        <FacultyDashboard name={this.props.user.displayName} /> 
+      this.writeInitialUserData(this.props.user.email)
+      return (
+        <div>
+          <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
+          <FacultyDashboard name={this.props.user.displayName} />
         </div>
-        );
-      }
-      else {
-        // console.log("not user")
-        this.props.signOut()
-        return(<Button variant="contained" color="primary" onClick={this.props.signInWithGoogle}>Sign in with Google</Button>)
+      );
+    }
+    else {
+      // console.log("not user")
+      this.props.signOut()
+      return (<Button variant="contained" color="primary" onClick={this.props.signInWithGoogle}>Sign in with Google</Button>)
 
-      }
+    }
   }
 
   render() {
@@ -66,7 +66,7 @@ usersRef.set({
         <header className="App-header">
           {/* <img src={logo} className="App-logo" alt="logo" /> */}
           {
-            user 
+            user
               ? <p></p> : <p>Please sign in.</p>
           }
           {
