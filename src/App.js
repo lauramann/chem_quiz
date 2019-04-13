@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
-import { withRouter } from 'react-router-dom';
 import firebaseConfig from './firebaseConfig';
 import './App.css';
-import Login from './Login.js';
 import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
+import FacultyDashboard from './FacultyDashboard';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -19,22 +18,21 @@ const providers = {
 class App extends Component {
   constructor(props) {
     super(props);
-    // this.state = {
-
-    // }
   this.verifyUser = this.verifyUser.bind(this);
   }
   
 
   verifyUser() {
-    if(this.props.user && this.props.user.email.endsWith("@trentu.ca")) {
-      // if(this.props.user) {
-        console.log("user")
-        return(<Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>)
-        // return (<button onClick={this.props.signOut}>Sign out</button>)
+    if(this.props.user && this.props.user.email.endsWith("@trentu.ca")) {       
+        return(
+          <div>
+        <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
+        <FacultyDashboard /> 
+        </div>
+        );
       }
       else {
-        console.log("not user")
+        // console.log("not user")
         this.props.signOut()
         return(<button onClick={this.props.signInWithGoogle}>Sign in with Google</button>)
 
@@ -64,14 +62,10 @@ class App extends Component {
             this.verifyUser()
           }
         </header>
+        {/* {this.state.isAuth} ?  */}
       </div>
-    );
 
-    // return (
-    //   <div className="App">
-    //     <Login />
-    //   </div>
-    // );
+    );
   }
 }
 
