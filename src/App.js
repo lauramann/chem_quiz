@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import * as firebase from 'firebase/app';
 import 'firebase/auth';
+import { withRouter } from 'react-router-dom';
 import firebaseConfig from './firebaseConfig';
 import './App.css';
 import Login from './Login.js';
+import 'typeface-roboto';
+import Button from '@material-ui/core/Button';
 
 const firebaseApp = firebase.initializeApp(firebaseConfig);
 
@@ -24,14 +27,15 @@ class App extends Component {
   
 
   verifyUser() {
-    if(this.props.user && this.props.user.email.endsWith(".trentu.ca")) {
+    if(this.props.user && this.props.user.email.endsWith("@trentu.ca")) {
       // if(this.props.user) {
         console.log("user")
-        return (<button onClick={this.props.signOut}>Sign out</button>)
+        return(<Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>)
+        // return (<button onClick={this.props.signOut}>Sign out</button>)
       }
       else {
         console.log("not user")
-        // this.props.signOut()
+        this.props.signOut()
         return(<button onClick={this.props.signInWithGoogle}>Sign in with Google</button>)
 
       }
