@@ -16,12 +16,25 @@ const providers = {
 class App extends Component {
   constructor(props) {
     super(props);
+    // this.state = {
+
+    // }
   this.verifyUser = this.verifyUser.bind(this);
   }
   
 
   verifyUser() {
-    
+    if(this.props.user && this.props.user.email.endsWith(".trentu.ca")) {
+      // if(this.props.user) {
+        console.log("user")
+        return (<button onClick={this.props.signOut}>Sign out</button>)
+      }
+      else {
+        console.log("not user")
+        // this.props.signOut()
+        return(<button onClick={this.props.signInWithGoogle}>Sign in with Google</button>)
+
+      }
   }
 
   render() {
@@ -44,10 +57,7 @@ class App extends Component {
               : <p>Please sign in.</p>
           }
           {
-            user ?
-            : user.displayName.endsWith(".trentu.ca") ?
-              <button onClick={signOut}>Sign out</button>
-              : <button onClick={signInWithGoogle}>Sign in with Google</button>
+            this.verifyUser()
           }
         </header>
       </div>
