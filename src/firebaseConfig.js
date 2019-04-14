@@ -1,3 +1,5 @@
+import firebase from 'firebase';
+
 const config = {
     apiKey: "AIzaSyBGDvQdCiWuHqvX8Q1LencFk9gO19l1-10",
     authDomain: "trent-chemistry.firebaseapp.com",
@@ -7,4 +9,6 @@ const config = {
     messagingSenderId: "357251055536"
   };
 
-  export default config;
+  firebase.initializeApp(config);
+
+  export default firebase;

@@ -1,16 +1,15 @@
 import React, { Component } from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth'
-import firebase from 'firebase';
-import 'firebase/auth';
-import firebaseConfig from './firebaseConfig';
+// import firebase from 'firebase';
+// import 'firebase/auth';
+import firebase from './firebaseConfig';
 import './App.css';
 import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
 import FacultyDashboard from './FacultyDashboard';
 import "./App.css";
 
-const firebaseApp = firebase.initializeApp(firebaseConfig);
-const firebaseAppAuth = firebaseApp.auth();
+const firebaseAppAuth = firebase.auth();
 const providers = {
   googleProvider: new firebase.auth.GoogleAuthProvider(),
 };
@@ -50,7 +49,7 @@ class App extends Component {
       return (
         <div>
           <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
-          <FacultyDashboard name={this.props.user.displayName} />
+          <FacultyDashboard name={this.props.user.displayName}/>
         </div>
       );
     }
@@ -63,7 +62,7 @@ class App extends Component {
   }
 
   render() {
-
+// console.log(firebaseApp.database())
     const {
       user,
       signOut,

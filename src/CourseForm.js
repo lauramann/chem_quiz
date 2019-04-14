@@ -1,7 +1,12 @@
 import React, { PureComponent } from "react";
 import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField'
+import TextField from '@material-ui/core/TextField';
+import Paper from '@material-ui/core/Paper';
+import firebase from './firebaseConfig';
+
+
+// var coursesRef = this.props.db.ref("courses");
 
 class CourseForm extends PureComponent {
     constructor(props) {
@@ -12,24 +17,26 @@ class CourseForm extends PureComponent {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
-        console.log(event.target.id)
-        let changeObj = {}
-        changeObj[event.target.id] = event.target.value
-        this.setState(changeObj);
-    }
+handleChange(event) {
+    console.log(event.target.id)
+    let changeObj = {}
+    changeObj[event.target.id] = event.target.value
+    this.setState(changeObj);
+}
 
-    handleSubmit(event) {
-        // alert('A name was submitted: ' + this.state.value);
-        console.log(event)
-        event.preventDefault();
-    }
+handleSubmit(event) {
+    // alert('A name was submitted: ' + this.state.value);
+    console.log(event)
+    // let courseRef = coursesRef.child(this.state.courseCode)
+    // courseRef.update({courseName: this.state.courseName, creatorUserName: this.props.name});
+    event.preventDefault();
+}
 
-
-    render() {
-        console.log("Hi")
-        return (
-            <div>
+render() {
+    console.log(firebase.database())
+    return (
+        <div>
+            <Paper elevation={1}>
                 <form>
                     <TextField
                         id="courseCode"
@@ -48,8 +55,9 @@ class CourseForm extends PureComponent {
                     <Button variant="contained" color="primary" onClick={this.handleSubmit}>Submit</Button>
                     {/* <input type="submit" value="Submit" /> */}
                 </form>
-            </div>
-        );
-    }
+            </Paper>
+        </div>
+    );
+}
 }
 export default CourseForm;
