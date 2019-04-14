@@ -49,7 +49,7 @@ class App extends Component {
       return (
         <div>
           <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
-          <FacultyDashboard name={this.props.user.displayName}/>
+          <FacultyDashboard name={this.props.user.displayName} email={this.props.user.email}/>
         </div>
       );
     }

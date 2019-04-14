@@ -5,8 +5,8 @@ import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import firebase from './firebaseConfig';
 
-
-// var coursesRef = this.props.db.ref("courses");
+var database = firebase.database()
+var coursesRef = database.ref("courses");
 
 class CourseForm extends PureComponent {
     constructor(props) {
@@ -27,13 +27,13 @@ handleChange(event) {
 handleSubmit(event) {
     // alert('A name was submitted: ' + this.state.value);
     console.log(event)
-    // let courseRef = coursesRef.child(this.state.courseCode)
-    // courseRef.update({courseName: this.state.courseName, creatorUserName: this.props.name});
+    let courseRef = coursesRef.child(this.state.courseCode)
+    courseRef.update({courseName: this.state.courseName, creatorEmail: this.props.email});
     event.preventDefault();
 }
 
 render() {
-    console.log(firebase.database())
+    // console.log(firebase.database())
     return (
         <div>
             <Paper elevation={1}>

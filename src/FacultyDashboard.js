@@ -20,7 +20,7 @@ class FacultyDashboard extends PureComponent {
         <div>
           <h1>Welcome, {this.props.name}</h1>
           <Button variant="contained" color="primary" onClick={this.createCourse}>Add Course</Button>
-        <CourseForm name={this.props.name} database={this.props.db}/>
+        <CourseForm email={this.props.email} database={this.props.db}/>
         </div>
       );
   }
