@@ -8,12 +8,20 @@ import MenuItem from '@material-ui/core/MenuItem';
 import InputLabel from '@material-ui/core/InputLabel';
 
 var database = firebase.database()
-// var coursesRef = database.ref("courses");
 
 class QuizForm extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { question: '', answer: '', wrong1: '', wrong2: '', wrong3: '', courseCode: '', coursesArray: [], name: '', quiz: []};
+        this.state = {
+            question: '', 
+            answer: '', 
+            wrong1: '', 
+            wrong2: '', 
+            wrong3: '', 
+            courseCode: '', 
+            coursesArray: [], 
+            name: '', 
+            quiz: []};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -27,9 +35,12 @@ class QuizForm extends PureComponent {
     }
 
     handleChange(event) {
-        console.log(event.target.id)
         let changeObj = {}
-        changeObj[event.target.id] = event.target.value
+        if(event.target.id) {
+            changeObj[event.target.id] = event.target.value
+        }
+        else changeObj[event.target.name] = event.target.value
+        
         this.setState(changeObj);
     }
 
@@ -39,12 +50,15 @@ class QuizForm extends PureComponent {
     }
 
     handleAddQuestion(event) {
-        let quest = this.state.quiz.push({question: this.state.question, answer:this.state.answer, wrong1: this.state.wrong1, wrong2: this.state.wrong2, wrong3: this.statewrong3})
-        console.log(quest)
-        // this.setState({ quiz: [...this.state.quiz, quest] }) 
-        // this.setState({ 
-        //     quiz: this.state.quiz.push(quest)
-        //   })
+        let quest = this.state.quiz
+        quest.push({
+            question: this.state.question, 
+            answer:this.state.answer, 
+            wrong1: this.state.wrong1, 
+            wrong2: this.state.wrong2, 
+            wrong3: this.state.wrong3
+        })
+
         this.setState({ quiz: quest })
           document.getElementById("quiz-form").reset();
           this.setState({
@@ -53,7 +67,6 @@ class QuizForm extends PureComponent {
             wrong1: '',
             wrong2: '',
             wrong3: ''
-
           })
           
           console.log(this.state.quiz)
@@ -61,7 +74,7 @@ class QuizForm extends PureComponent {
     }
 
     handleSubmit(event) {
-        // alert('A name was submitted: ' + this.state.value);
+
         console.log(event)
         let quizzesRef = database.ref("courses/" + this.state.courseCode + "/quizzes")
         let quiz = quizzesRef.child(5)
@@ -86,10 +99,11 @@ class QuizForm extends PureComponent {
                     <form id="quiz-form">
                         <InputLabel>Course</InputLabel>
                         <Select
+                            id="course"
                             value={this.state.courseCode}
                             onChange={this.handleChange}
                             inputProps={{
-                                name: 'Course',
+                                name: 'courseCode',
                                 id: 'course-code',
                             }}
                         >
