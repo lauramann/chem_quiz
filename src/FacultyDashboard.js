@@ -2,6 +2,7 @@ import React, { PureComponent } from "react";
 import { withRouter } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import CourseForm from './CourseForm';
+import QuizForm from './QuizForm';
 
 class FacultyDashboard extends PureComponent {
     constructor(props) {
@@ -20,7 +21,8 @@ class FacultyDashboard extends PureComponent {
         <div>
           <h1>Welcome, {this.props.name}</h1>
           <Button variant="contained" color="primary" onClick={this.createCourse}>Add Course</Button>
-        <CourseForm email={this.props.email} database={this.props.db}/>
+        <CourseForm email={this.props.email}/>
+        <QuizForm />
         </div>
       );
   }
