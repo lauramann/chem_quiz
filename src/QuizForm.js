@@ -13,15 +13,17 @@ class QuizForm extends PureComponent {
     constructor(props) {
         super(props);
         this.state = {
-            question: '', 
-            answer: '', 
-            wrong1: '', 
-            wrong2: '', 
-            wrong3: '', 
-            courseCode: '', 
-            coursesArray: [], 
-            name: '', 
-            quiz: []};
+            question: '',
+            answer: '',
+            // options: {},
+            wrong1: '',
+            wrong2: '',
+            wrong3: '',
+            courseCode: '',
+            coursesArray: [],
+            name: '',
+            quiz: []
+        };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,59 +38,62 @@ class QuizForm extends PureComponent {
 
     handleChange(event) {
         let changeObj = {}
-        if(event.target.id) {
+        if (event.target.id) {
             changeObj[event.target.id] = event.target.value
         }
         else changeObj[event.target.name] = event.target.value
-        
+
         this.setState(changeObj);
     }
 
     gotOne(data) {
-        this.setState({coursesArray: Object.keys(data.val())})
+        this.setState({ coursesArray: Object.keys(data.val()) })
         console.log(this.state.coursesArray)
     }
 
     handleAddQuestion(event) {
         let quest = this.state.quiz
         quest.push({
-            question: this.state.question, 
-            answer:this.state.answer, 
-            wrong1: this.state.wrong1, 
-            wrong2: this.state.wrong2, 
-            wrong3: this.state.wrong3
-        })
-
-        this.setState({ quiz: quest })
-          document.getElementById("quiz-form").reset();
-          this.setState({
-            question: '',
-            answer: '',
-            wrong1: '',
-            wrong2: '',
-            wrong3: ''
-          })
-          
-          console.log(this.state.quiz)
-
-    }
-
-    handleSubmit(event) {
-
-        console.log(event)
-        let quizzesRef = database.ref("courses/" + this.state.courseCode + "/quizzes")
-        let quiz = quizzesRef.child(5)
-
-        let question = {
-            answer: this.state.answer,
             question: this.state.question,
+            answer: this.state.answer,
             options: {
                 0: this.state.wrong1,
                 1: this.state.wrong2,
                 2: this.state.wrong3
             }
-        }
-        quiz.push(question);
+        })
+
+        this.setState({ quiz: quest })
+        document.getElementById("quiz-form").reset();
+        this.setState({
+            question: '',
+            answer: '',
+            wrong1: '',
+            wrong2: '',
+            wrong3: ''
+
+        })
+
+        console.log(this.state.quiz)
+
+    }
+
+    handleSubmit(event) {
+        this.handleAddQuestion()
+        console.log(event)
+        let quizzesRef = database.ref("courses/" + this.state.courseCode)
+        let quiz = quizzesRef.child('quizzes')
+
+        // let question = {
+        //     answer: this.state.answer,
+        //     question: this.state.question,
+        //     wrong1: this.state.wrong1,
+        //     wrong2: this.state.wrong2,
+        //     wrong3: this.state.wrong3
+        // }
+        let finalQuiz = this.state.quiz
+        finalQuiz.name = this.state.name
+        quiz.push(finalQuiz);
         event.preventDefault();
     }
 
@@ -107,8 +112,8 @@ class QuizForm extends PureComponent {
                                 id: 'course-code',
                             }}
                         >
-                        {this.state.coursesArray.map((course) => 
-                        <MenuItem key={course} value={course}>{course}</MenuItem>)}
+                            {this.state.coursesArray.map((course) =>
+                                <MenuItem key={course} value={course}>{course}</MenuItem>)}
                         </Select>
                         <TextField
                             id="name"
