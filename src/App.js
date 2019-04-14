@@ -21,19 +21,32 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.verifyUser = this.verifyUser.bind(this);
-    this.writeInitialUserData = this.writeInitialUserData.bind(this)
+    this.writeUserData = this.writeUserData.bind(this)
+    this.readUserData = this.readUserData.bind(this);
   }
 
-  writeInitialUserData(email) {
+  writeUserData(email) {
     let userName = email.split('@')[0]
     let userRef = usersRef.child(userName)
     userRef.update({isFaculty: false});
   }
 
+  readUserData(email) {
+    let userName = email.split('@')[0]
+    let userRef = usersRef.child(userName)
+    
+    userRef.on("value", function(snapshot) {
+      console.log(snapshot.val());
+    }, function (errorObject) {
+      console.log("The read failed: " + errorObject.code);
+    });
+  }
+
   verifyUser() {
     if (this.props.user && this.props.user.email.endsWith("@trentu.ca")) {
 
-      this.writeInitialUserData(this.props.user.email)
+      this.writeUserData(this.props.user.email)
+      this.readUserData(this.props.user.email)
       return (
         <div>
           <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
