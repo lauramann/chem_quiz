@@ -13,7 +13,7 @@ var database = firebase.database()
 class QuizForm extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { question: '', answer: '', wrong1: '', wrong2: '', wrong3: '', courseCode: '', coursesArray: [], name: '' };
+        this.state = { question: '', answer: '', wrong1: '', wrong2: '', wrong3: '', courseCode: '', coursesArray: [], name: '', quiz: []};
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -36,6 +36,28 @@ class QuizForm extends PureComponent {
     gotOne(data) {
         this.setState({coursesArray: Object.keys(data.val())})
         console.log(this.state.coursesArray)
+    }
+
+    handleAddQuestion(event) {
+        let quest = this.state.quiz.push({question: this.state.question, answer:this.state.answer, wrong1: this.state.wrong1, wrong2: this.state.wrong2, wrong3: this.statewrong3})
+        console.log(quest)
+        // this.setState({ quiz: [...this.state.quiz, quest] }) 
+        // this.setState({ 
+        //     quiz: this.state.quiz.push(quest)
+        //   })
+        this.setState({ quiz: quest })
+          document.getElementById("quiz-form").reset();
+          this.setState({
+            question: '',
+            answer: '',
+            wrong1: '',
+            wrong2: '',
+            wrong3: ''
+
+          })
+          
+          console.log(this.state.quiz)
+
     }
 
     handleSubmit(event) {
@@ -61,7 +83,7 @@ class QuizForm extends PureComponent {
         return (
             <div>
                 <Paper elevation={1}>
-                    <form>
+                    <form id="quiz-form">
                         <InputLabel>Course</InputLabel>
                         <Select
                             value={this.state.courseCode}
