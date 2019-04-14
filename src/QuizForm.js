@@ -13,13 +13,17 @@ var database = firebase.database()
 class QuizForm extends PureComponent {
     constructor(props) {
         super(props);
-        this.state = { question: '', answer: '', wrong1: '', wrong2: '', wrong3: '', courseCode: '', coursesArray: [] };
+        this.state = { question: '', answer: '', wrong1: '', wrong2: '', wrong3: '', courseCode: '', coursesArray: [], name: '' };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleCourseChange = this.handleCourseChange.bind(this);
-        this.readUserData = this.readUserData.bind(this);
         this.gotOne = this.gotOne.bind(this);
+        this.handleAddQuestion = this.handleAddQuestion.bind(this);
+    }
+
+    componentDidMount() {
+        let coursesRef = database.ref("courses")
+        coursesRef.on("value", this.gotOne);
     }
 
     handleChange(event) {
@@ -29,30 +33,9 @@ class QuizForm extends PureComponent {
         this.setState(changeObj);
     }
 
-    handleCourseChange(event) {
-        let courseObj = {}
-        courseObj[event.target.id] = event.target.value
-        console.log(courseObj)
-        this.setState(courseObj);
-    }
-
-    readUserData() {
-        let coursesRef = database.ref("courses")
-        coursesRef.on("value", this.gotOne, errData);
-
-        // function gotOne(data) {
-        //     this.setState({coursesArray: Object.keys(data.val())})
-        // }
-
-        function errData(data) {
-            console.log("erro")
-        }
-
-        console.log(this.state.coursesArray)
-    }
-
     gotOne(data) {
         this.setState({coursesArray: Object.keys(data.val())})
+        console.log(this.state.coursesArray)
     }
 
     handleSubmit(event) {
@@ -74,13 +57,7 @@ class QuizForm extends PureComponent {
         event.preventDefault();
     }
 
-    componentDidMount() {
-        this.readUserData()
-    }
-
     render() {
-        // console.log(this.readUserData())
-        // console.log(firebase.database())
         return (
             <div>
                 <Paper elevation={1}>
@@ -94,13 +71,16 @@ class QuizForm extends PureComponent {
                                 id: 'course-code',
                             }}
                         >
-                            <MenuItem value="">
-                                <em>None</em>
-                            </MenuItem>
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                        {this.state.coursesArray.map((course) => 
+                        <MenuItem key={course} value={course}>{course}</MenuItem>)}
                         </Select>
+                        <TextField
+                            id="name"
+                            label="Name of Quiz"
+                            value={this.state.name}
+                            onChange={this.handleChange}
+                            margin="normal"
+                        />
                         <TextField
                             id="question"
                             label="Question"
@@ -136,6 +116,7 @@ class QuizForm extends PureComponent {
                             onChange={this.handleChange}
                             margin="normal"
                         />
+                        <Button variant="contained" color="primary" onClick={this.handleAddQuestion}>Add Question</Button>
                         <Button variant="contained" color="primary" onClick={this.handleSubmit}>Submit</Button>
                     </form>
                 </Paper>
