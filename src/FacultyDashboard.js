@@ -35,6 +35,7 @@ class FacultyDashboard extends PureComponent {
     return (
       <div>
         <h1>Welcome, {this.props.name}</h1>
+        <h2>Faculty Dashboard</h2>
         <Button variant="contained" color="primary" onClick={this.createCourse}>Add Course</Button>
         <CourseForm email={this.props.email} />
         <QuizForm />

@@ -61,7 +61,7 @@ class App extends Component {
       return (
         <div>
           <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
-          {this.state.isFaculty == true
+          {this.state.isFaculty === true
           ? <FacultyDashboard name={this.props.user.displayName} email={this.props.user.email}/> 
           : <StudentDashboard name={this.props.user.displayName}/>}
         </div>
@@ -77,8 +77,6 @@ class App extends Component {
   render() {
     const {
       user,
-      signOut,
-      signInWithGoogle,
     } = this.props;
 
 

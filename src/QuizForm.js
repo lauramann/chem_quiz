@@ -74,8 +74,6 @@ class QuizForm extends PureComponent {
 
         })
 
-        console.log(this.state.quiz)
-
     }
 
     handleSubmit(event) {
@@ -83,14 +81,6 @@ class QuizForm extends PureComponent {
         console.log(event)
         let quizzesRef = database.ref("courses/" + this.state.courseCode)
         let quiz = quizzesRef.child('quizzes')
-
-        // let question = {
-        //     answer: this.state.answer,
-        //     question: this.state.question,
-        //     wrong1: this.state.wrong1,
-        //     wrong2: this.state.wrong2,
-        //     wrong3: this.state.wrong3
-        // }
         let finalQuiz = this.state.quiz
         finalQuiz.name = this.state.name
         quiz.push(finalQuiz);
