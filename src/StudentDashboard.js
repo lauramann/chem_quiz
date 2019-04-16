@@ -48,9 +48,18 @@ class StudentDashboard extends PureComponent {
         individualCourses.map((course) =>(
           <div>
             {console.log(course.courseName)}
-          {console.log(course.quizzes)}
           {Object.values(course.quizzes).map((quiz)=> (
-            console.log(quiz.name)
+            <div>
+            { console.log(quiz.name) }
+             {Object.values(quiz).map((quiz) => (
+               <div>
+                {console.log(quiz)}
+                {console.log(quiz.question)}
+                {console.log(quiz.answer)}
+               </div>
+              
+             ))}
+            </div>
           ))}
           </div>
         )) 
