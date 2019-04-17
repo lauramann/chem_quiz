@@ -4,6 +4,11 @@ import firebase from './firebaseConfig';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 
 var database = firebase.database()
 
@@ -41,56 +46,55 @@ class StudentDashboard extends PureComponent {
     let chosen = event.target.value
     let chosenCourse = {}
     if (event.target.id) {
-        changeObj[event.target.id] = event.target.value
+      changeObj[event.target.id] = event.target.value
     }
     else changeObj[event.target.name] = event.target.value
 
     this.setState(changeObj);
 
-    if(individualCourses != undefined) {
-        individualCourses.map((course)=> {
-          if(course.courseCode == chosen) {
-            chosenCourse = course
-          }
-        })
+    if (individualCourses != undefined) {
+      individualCourses.map((course) => {
+        if (course.courseCode == chosen) {
+          chosenCourse = course
+        }
+      })
     }
     console.log(chosenCourse)
-}
+  }
 
   showCourses(chosenCourse) {
     let individualCourses = Object.values(this.state.courses)
     let courseObj = null
 
-    if(individualCourses != undefined) {
-
-        individualCourses.map((course)=> {
-          if(course.courseCode == chosenCourse) {
-            // <div>
-            courseObj = course
-            // return(<h2>Hello</h2>)
-              // {console.log(course)}
-            // <h2>{course.courseCode}: {course.courseName}</h2>
-            // </div>
-            
-            // <div>
-            //   {
-                // <h2>{course.courseCode}: {course.courseName}</h2>
-            //   }
-            // </div>
-          }
-        })
-
+    if (individualCourses != undefined) {
+      individualCourses.map((course) => {
+        if (course.courseCode == chosenCourse) {
+          courseObj = course
+        }
+      })
     }
-    console.log(chosenCourse)
-    if(courseObj != null) {
-    return(
-      <div>
-        <h2>{courseObj.courseCode}: {courseObj.courseName}</h2>
-        {Object.values(courseObj.quizzes).map((quiz, i)=>(
-          <h3 key={i} >{quiz.name}</h3>
-        ))}
-      </div>
-    )}
+
+    if (courseObj != null) {
+      return (
+        <div>
+          <h2>{courseObj.courseCode}: {courseObj.courseName}</h2>
+          {Object.values(courseObj.quizzes).map((quiz, i) => (
+            
+            <Card>
+              {console.log(Object.values(quiz).length)}
+              <CardContent>
+                <Typography variant="h5" component="h2">
+                  {quiz.name}
+                </Typography>
+              </CardContent>
+              <CardActions>
+                <Button size="small">Start Quiz</Button>
+              </CardActions>
+            </Card>
+          ))}
+        </div>
+      )
+    }
 
     // if(individualCourses != undefined) {
     //   return(
@@ -161,7 +165,7 @@ class StudentDashboard extends PureComponent {
     // console.log(this.state.courses)
     return (
       <div>
-        
+
         <h1>Welcome, {this.props.name}</h1>
         <h2>Student Dashboard</h2>
         <InputLabel>Course</InputLabel>
