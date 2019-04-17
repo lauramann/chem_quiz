@@ -9,6 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
+import Quiz from './Quiz';
 
 var database = firebase.database()
 
@@ -20,10 +21,11 @@ class StudentDashboard extends PureComponent {
       courses: {},
       coursesArray: [],
       courseCode: '',
-      chosenCourse: {}
+      quiz: null,
     }
     this.showCourses = this.showCourses.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleQuiz = this.handleQuiz.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +39,6 @@ class StudentDashboard extends PureComponent {
       courses: data.val(),
       coursesArray: coursesArray
     })
-
   }
 
   handleChange(event) {
@@ -62,6 +63,10 @@ class StudentDashboard extends PureComponent {
     console.log(chosenCourse)
   }
 
+  handleQuiz(quiz) {
+    this.setState({quiz: quiz})
+  }
+
   showCourses(chosenCourse) {
     let individualCourses = Object.values(this.state.courses)
     let courseObj = null
@@ -81,14 +86,13 @@ class StudentDashboard extends PureComponent {
           {Object.values(courseObj.quizzes).map((quiz, i) => (
             
             <Card>
-              {console.log(Object.values(quiz).length)}
               <CardContent>
                 <Typography variant="h5" component="h2">
                   {quiz.name}
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small">Start Quiz</Button>
+                <Button onClick={() => this.handleQuiz(quiz)} size="small">Start Quiz</Button>
               </CardActions>
             </Card>
           ))}
@@ -168,7 +172,7 @@ class StudentDashboard extends PureComponent {
 
         <h1>Welcome, {this.props.name}</h1>
         <h2>Student Dashboard</h2>
-        <InputLabel>Course</InputLabel>
+        <InputLabel>Select a Course</InputLabel>
         <Select
           id="course"
           value={this.state.courseCode}
@@ -182,6 +186,7 @@ class StudentDashboard extends PureComponent {
             <MenuItem key={course} value={course}>{course}</MenuItem>)}
         </Select>
         {this.showCourses(this.state.courseCode)}
+        {this.state.quiz != null ? <Quiz quiz={this.state.quiz} /> : console.log()}
       </div>
     );
   }
