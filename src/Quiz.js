@@ -37,13 +37,10 @@ class Quiz extends PureComponent {
                         {console.log(i)}
                         {console.log(q.length)}
                         <h2>{q.question}</h2>
-                        <ul>{
-                            this.getOptions(q).map((opt) => (
-                                
-                                <li>{opt}</li>
-                            ))
-                        }</ul>
-
+                            {this.getOptions(q).map((opt) => (
+                                <Button onClick={console.log("clicked")} size="small">{opt}</Button>
+                                // <li>{opt}</li>
+                            ))}
                     </div>
                 ))}
 
