@@ -5,6 +5,15 @@ class Quiz extends PureComponent {
     constructor(props) {
         super(props);
         this.getOptions = this.getOptions.bind(this);
+        this.handleClick = this.handleClick.bind(this);
+        this.state = ({
+            userAnswers: this.props.quiz
+        })
+    }
+
+    handleClick(selected) {
+        console.log(selected)
+
     }
 
     getOptions(question) {
@@ -13,33 +22,27 @@ class Quiz extends PureComponent {
         arr.push(question.wrong3)
         arr.push(question.answer)
         arr.push(question.wrong2)
-        console.log(arr)
+
         return (arr)
     }
 
     render() {
-        console.log(this.props.quiz)
-        console.log("quiz length: " + Object.values(this.props.quiz).length)
+        console.log(this.state.userAnswers)
+        console.log(this.props.user)
         const q = Object.values(this.props.quiz)
         const questions = []
-        for(let i=0;i<q.length-1;i++) {
+        for(let i=0;i<q.length;i++) {
             questions.push(q[i])
         }
-        console.log(questions)
 
         return (
             <div>
                 <h1>{this.props.quiz.name}</h1>
                 {questions.map((q, i) => (
-                    // {if(i<Object.values(this.props.quiz).length) console.log}
                     <div>
-                        {console.log(q)}
-                        {console.log(i)}
-                        {console.log(q.length)}
                         <h2>{q.question}</h2>
                             {this.getOptions(q).map((opt) => (
-                                <Button onClick={console.log("clicked")} size="small">{opt}</Button>
-                                // <li>{opt}</li>
+                                <Button onClick={() => this.handleClick(q)} size="small">{opt}</Button>
                             ))}
                     </div>
                 ))}

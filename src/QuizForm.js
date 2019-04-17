@@ -48,7 +48,6 @@ class QuizForm extends PureComponent {
 
     gotOne(data) {
         this.setState({ coursesArray: Object.keys(data.val()) })
-        console.log(this.state.coursesArray)
     }
 
     handleAddQuestion(event) {
@@ -78,7 +77,6 @@ class QuizForm extends PureComponent {
 
     handleSubmit(event) {
         this.handleAddQuestion()
-        console.log(event)
         let quizzesRef = database.ref("courses/" + this.state.courseCode)
         let quiz = quizzesRef.child('quizzes')
         let finalQuiz = this.state.quiz

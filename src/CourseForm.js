@@ -18,22 +18,18 @@ class CourseForm extends PureComponent {
     }
 
 handleChange(event) {
-    console.log(event.target.id)
     let changeObj = {}
     changeObj[event.target.id] = event.target.value
     this.setState(changeObj);
 }
 
 handleSubmit(event) {
-    // alert('A name was submitted: ' + this.state.value);
-    console.log(event)
     let courseRef = coursesRef.child(this.state.courseCode)
     courseRef.update({courseName: this.state.courseName, creatorEmail: this.props.email});
     event.preventDefault();
 }
 
 render() {
-    // console.log(firebase.database())
     return (
         <div>
             <Paper elevation={1}>

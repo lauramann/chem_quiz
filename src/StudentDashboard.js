@@ -11,7 +11,8 @@ import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Quiz from './Quiz';
 
-var database = firebase.database()
+let database = firebase.database()
+let usersRef = database.ref("users")
 
 class StudentDashboard extends PureComponent {
   constructor(props) {
@@ -60,11 +61,36 @@ class StudentDashboard extends PureComponent {
         }
       })
     }
-    console.log(chosenCourse)
+    // console.log(chosenCourse)
   }
 
   handleQuiz(quiz) {
     this.setState({quiz: quiz})
+    // console.log(quiz)
+    // let userRef = usersRef.child(this.props.username)
+    // if(this.state.courseCode != '') {
+    //   let course = this.state.courseCode
+    //   let userQuiz = {}
+    //   userQuiz[course] = {quizzes: {}}
+    //   console.log(userQuiz)
+    // }
+
+    // let course = usersRef.child('courses')
+    // let quizzes = course.child('quizzes')
+    //     let addedQuiz = quiz
+    //     quizzes.push(addedQuiz);
+
+      // userRef.once('value', function (snapshot) {
+      //   if (!snapshot.hasChild('courses')) {
+      //     userRef.update({quizzes: {quiz}});
+      //   }
+      // });
+
+      // let quizzesRef = database.ref("courses/" + this.state.courseCode)
+      //   let quizzes = quizzesRef.child('quizzes')
+      //   let finalQuiz = quiz
+      //   quizzes.push(finalQuiz);
+    
   }
 
   showCourses(chosenCourse) {
@@ -100,73 +126,9 @@ class StudentDashboard extends PureComponent {
       )
     }
 
-    // if(individualCourses != undefined) {
-    //   return(
-    //     individualCourses.map((course) => (
-    //       <div>
-    //         {course.courseCode != chosenCourse ? console.log("do not match") 
-    //         : <div>
-    //         <h2>{course.courseCode}: {course.courseName}</h2>
-    //         {Object.values(course.quizzes).map((quiz)=>(
-    //           <div>
-    //           {<h3>{quiz.name}</h3>}
-    //           {console.log(quiz.name)}
-    //           {Object.values(quiz).map((quiz) => (
-    //             <div>
-    //               {/* {<p>{quiz}</p>} */}
-    //               {console.log(quiz)}
-    //               {<h4>{quiz.question}</h4>}
-    //               {console.log(quiz.question)}
-    //               {<p>{quiz.answer}</p>}
-    //               {console.log(quiz.answer)}
-    //             </div>
-
-    //           ))}
-    //         </div>
-    //         ))}
-    //         </div>
-    //       }
-    //       </div>
-    //     )
-    //   ))
-    // }
-
-    // if (individualCourses != undefined) {
-    //   return (
-    //     individualCourses.map((course) => (
-    //       <div>
-    //         {console.log(course)}
-    //         {course.courseCode == chosenCourse ? console.log("match") : console.log("dont match")}
-    //         {console.log("chosen course: " +chosenCourse)}
-    //         {<h2>{course.courseName}</h2>}
-    //         {console.log(course.courseName)}
-    //         {Object.values(course.quizzes).map((quiz) => (
-    //           <div>
-    //             {<h3>{quiz.name}</h3>}
-    //             {console.log(quiz.name)}
-    //             {Object.values(quiz).map((quiz) => (
-    //               <div>
-    //                 {/* {<p>{quiz}</p>} */}
-    //                 {console.log(quiz)}
-    //                 {<h4>{quiz.question}</h4>}
-    //                 {console.log(quiz.question)}
-    //                 {<p>{quiz.answer}</p>}
-    //                 {console.log(quiz.answer)}
-    //               </div>
-
-    //             ))}
-    //           </div>
-    //         ))}
-    //       </div>
-    //     ))
-    //   )
-    // }
-
-
   }
 
   render() {
-    // console.log(this.state.courses)
     return (
       <div>
 
@@ -186,7 +148,7 @@ class StudentDashboard extends PureComponent {
             <MenuItem key={course} value={course}>{course}</MenuItem>)}
         </Select>
         {this.showCourses(this.state.courseCode)}
-        {this.state.quiz != null ? <Quiz quiz={this.state.quiz} /> : console.log()}
+        {this.state.quiz != null ? <Quiz quiz={this.state.quiz} user={this.props.username} /> : console.log()}
       </div>
     );
   }

@@ -20,14 +20,10 @@ class FacultyDashboard extends PureComponent {
   }
 
   gotOne(data) {
-    console.log(data.val())
     return(<p></p>)
-    // this.setState({ coursesArray: Object.keys(data.val()) })
-    // console.log(this.state.coursesArray)
   }
 
   createCourse() {
-    console.log("Create Course :)")
     return (<CourseForm />)
   }
 

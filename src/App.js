@@ -62,8 +62,8 @@ class App extends Component {
         <div>
           <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
           {this.state.isFaculty === true
-          ? <FacultyDashboard name={this.props.user.displayName} email={this.props.user.email}/> 
-          : <StudentDashboard name={this.props.user.displayName}/>}
+          ? <FacultyDashboard name={this.props.user.displayName} email={this.props.user.email.split('@')[0]} /> 
+          : <StudentDashboard name={this.props.user.displayName} username={this.props.user.email.split('@')[0]} />}
         </div>
       );
     }
