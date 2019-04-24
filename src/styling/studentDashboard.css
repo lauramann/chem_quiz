@@ -10,7 +10,7 @@
 .student-main {
     background-color: #BED9B6;
     margin: 10px 20px 10px 20px;
-    padding: 10px;
+    padding: 20px;
     border-radius: 7px;
     min-height: 300px;
 }
@@ -22,4 +22,42 @@
 
 .MuiInputLabel-animated-48 {
     color:white;
+}
+
+.select > .MuiInputLabel-animated-48 {
+    color:white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.select > .MuiSelect-selectMenu-62 {
+    min-width: 40px;
+    width: 400px;
+}
+
+.MuiSelect-selectMenu-62 {
+    width: 400px;
+}
+
+.drop-down {
+    min-width: 200px;
+}
+
+.select-label {
+    color:white;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 10px;
+}
+
+.quiz-card {
+    width: 250px;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#cards {
+    background-color: blue;
 }

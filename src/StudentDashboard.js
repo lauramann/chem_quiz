@@ -111,9 +111,10 @@ class StudentDashboard extends PureComponent {
       return (
         <div>
           <h2>{courseObj.courseCode}: {courseObj.courseName}</h2>
+          <div  id="cards">
           {Object.values(courseObj.quizzes).map((quiz, i) => (
 
-            <Card>
+            <Card className="quiz-card">
               <CardContent>
                 <Typography variant="h5" component="h2">
                   {quiz.name}
@@ -124,6 +125,7 @@ class StudentDashboard extends PureComponent {
               </CardActions>
             </Card>
           ))}
+          </div>
         </div>
       )
     }
@@ -142,8 +144,9 @@ class StudentDashboard extends PureComponent {
         </div>
         <div className="student-main">
         <div className="select">
-        <InputLabel>Select a Course</InputLabel>
+        <InputLabel className="select-label">Select a Course</InputLabel>
         <Select
+        className="drop-down"
           id="course"
           value={this.state.courseCode}
           onChange={this.handleChange}

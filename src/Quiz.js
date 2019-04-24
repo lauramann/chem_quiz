@@ -11,15 +11,12 @@ class Quiz extends PureComponent {
         this.handleClick = this.handleClick.bind(this);
         this.shuffle = this.shuffle.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleChange = this.handleChange.bind(this);
+        this.getQuestions = this.getOptions.bind(this);
         this.state = ({
             userAnswers: 0,
-            prevIndex: -1
+            prevIndex: -1,
+            right: false
         })
-    }
-
-    handleChange() {
-
     }
 
     handleClick(selected, i) {
@@ -29,6 +26,9 @@ class Quiz extends PureComponent {
         console.log(i)
         if (quizVals[i].answer == selected) {
             console.log("right!")
+            let num = i+1
+            console.log(document.getElementById("question" + num))
+            document.getElementById("question" + num).style.display = "block";
         }
         else console.log("wrong!")
     }
@@ -45,6 +45,14 @@ class Quiz extends PureComponent {
         arr.push(question.wrong2)
 
         return (this.shuffle(arr))
+    }
+
+    getQuestions() {
+        const q = Object.values(this.props.quiz)
+        const questions = []
+        for (let i = 0; i < q.length; i++) {
+            questions.push(q[i])
+        }
     }
 
 
@@ -82,7 +90,7 @@ class Quiz extends PureComponent {
             <div>
                 <h1>{this.props.quiz.name}</h1>
                 {questions.map((q, i) => (
-                    <div>
+                    <div id={"question"+i} style={i<1 ? {display:"block"}: {display:"none"} }>
                         <h2>{q.question}</h2>
 
                         {this.getOptions(q).map((opt) => (
