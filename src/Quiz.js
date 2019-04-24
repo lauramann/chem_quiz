@@ -14,31 +14,45 @@ class Quiz extends PureComponent {
         this.getQuestions = this.getOptions.bind(this);
         this.state = ({
             userAnswers: 0,
-            prevIndex: -1,
             questionsSize: 0,
         })
     }
 
-    handleClick(selected, i) {
-        let quizVals = Object.values(this.props.quiz)
-        console.log(quizVals[i])
+    handleClick(selected, questionIndex, optionIndex) {
         console.log(selected)
-        console.log(i)
-        if (quizVals[i].answer == selected) {
+        console.log(optionIndex)
+        let quizVals = Object.values(this.props.quiz)
+        console.log(quizVals[questionIndex])
+        console.log(selected)
+        console.log(questionIndex)
+        if (quizVals[questionIndex].answer == selected) {
+            document.getElementById(questionIndex +"opt" + optionIndex).style.borderStyle = "solid";
+            document.getElementById(questionIndex +"opt" + optionIndex).style.borderWidth = "1px";
+            document.getElementById(questionIndex +"opt" + optionIndex).style.borderColor = "green";
             console.log("right!")
-            let num = i+1
+            let num = questionIndex+1
             // console.log(document.getElementById("question" + num))
             console.log(this.state.questionsSize)
             console.log(num)
             if(num<this.state.questionsSize)
                 document.getElementById("question" + num).style.display = "block";
-            else(console.log("end of questions"))
+            else{
+                (console.log("end of questions"))
+                // document.getElementById("submit-button").style.display = "block";
+            }
         }
-        else console.log("wrong!")
+        else {
+            document.getElementById(questionIndex +"opt" + optionIndex).style.borderStyle = "solid";
+            document.getElementById(questionIndex +"opt" + optionIndex).style.borderWidth = "1px";
+            document.getElementById(questionIndex +"opt" + optionIndex).style.borderColor = "red";
+            console.log("wrong!")
+        }
     }
 
     handleSubmit() {
         console.log(this.state.userAnswers)
+        console.log("Submitted")
+
     }
 
     getOptions(question) {
@@ -93,17 +107,16 @@ class Quiz extends PureComponent {
 
         return (
             <div>
-                <h1>{this.props.quiz.name}</h1>
                 {questions.map((q, i) => (
                     <div id={"question"+i} style={i<1 ? {display:"block"}: {display:"none"} }>
-                        <h2>{q.question}</h2>
+                        <h3>{i+1}. {q.question}</h3>
 
-                        {this.getOptions(q).map((opt) => (
-                            <Button onClick={() => this.handleClick(opt, i)} size="small">{opt}</Button>
+                        {this.getOptions(q).map((opt, j) => (
+                            <Button id={i+"opt"+j} onClick={() => this.handleClick(opt, i, j)} size="small">{opt}</Button>
                         ))}
                     </div>
                 ))}
-                <Button onClick={this.handleSubmit()}>Submit</Button>
+                {/* {<Button id="submit-button" style={{display:"none"}} onClick={this.handleSubmit}>Submit</Button>} */}
 
             </div>
         );
