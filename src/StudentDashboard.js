@@ -73,7 +73,6 @@ class StudentDashboard extends PureComponent {
     }
     this.showCourses = this.showCourses.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.handleQuiz = this.handleQuiz.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
   }
 
@@ -123,12 +122,6 @@ class StudentDashboard extends PureComponent {
     // console.log(chosenCourse)
   }
 
-  handleQuiz(quiz) {
-    
-    this.setState({ quiz: quiz })
-
-  }
-
   showCourses(chosenCourse) {
     let individualCourses = Object.values(this.state.courses)
     let courseObj = null
@@ -156,7 +149,6 @@ class StudentDashboard extends PureComponent {
               </CardContent>
               <CardActions>
                 <Button onClick={() => this.handleClickOpen(quiz)}>Start Quiz</Button>
-                {/* <Button onClick={() => this.handleQuiz(quiz)} size="small">Start Quiz</Button> */}
               </CardActions>
             </Card>
             

@@ -15,10 +15,12 @@ class Quiz extends PureComponent {
         this.state = ({
             userAnswers: 0,
             questionsSize: 0,
+            tempUserAnswers: 0
         })
     }
 
     handleClick(selected, questionIndex, optionIndex) {
+        this.setState({tempUserAnswers: this.state.tempUserAnswers+1})
         console.log(selected)
         console.log(optionIndex)
         let quizVals = Object.values(this.props.quiz)
@@ -26,6 +28,11 @@ class Quiz extends PureComponent {
         console.log(selected)
         console.log(questionIndex)
         if (quizVals[questionIndex].answer == selected) {
+            if(this.state.tempUserAnswers == 1) 
+                this.setState({userAnswers: this.state.userAnswers+1})
+            else if(this.state.tempUserAnswers == 2)
+                this.setState({userAnswers: this.state.userAnswers+0.5});
+            this.setState({tempUserAnswers: 0})
             document.getElementById(questionIndex +"opt" + optionIndex).style.borderStyle = "solid";
             document.getElementById(questionIndex +"opt" + optionIndex).style.borderWidth = "1px";
             document.getElementById(questionIndex +"opt" + optionIndex).style.borderColor = "green";
@@ -38,6 +45,7 @@ class Quiz extends PureComponent {
                 document.getElementById("question" + num).style.display = "block";
             else{
                 (console.log("end of questions"))
+                console.log(this.state.userAnswers)
                 // document.getElementById("submit-button").style.display = "block";
             }
         }
@@ -61,8 +69,9 @@ class Quiz extends PureComponent {
         arr.push(question.wrong3)
         arr.push(question.answer)
         arr.push(question.wrong2)
+        // arr = this.shuffle(arr)
 
-        return (this.shuffle(arr))
+        return (arr)
     }
 
     getQuestions() {
