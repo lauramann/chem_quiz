@@ -1,0 +1,34 @@
+/* .App {
+  margin: 10px;
+  width: 100%;
+} */
+
+#signoutButton {
+  float:right;
+  margin-right: 20px;
+    margin-top: -50px;
+}
+
+#signinButton {
+  display: flex;
+  justify-content: center;
+}
+
+.signinNote {
+ text-align: center;
+}
+
+#button-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.MuiAvatar-root-37 {
+  margin-left: 10px;
+  margin-bottom: 10px;
+}
+
+
+/* .App-header {
+  margin-top: 100px;
+} */

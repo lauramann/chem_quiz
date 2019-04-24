@@ -25,7 +25,7 @@ handleChange(event) {
 
 handleSubmit(event) {
     let courseRef = coursesRef.child(this.state.courseCode)
-    courseRef.update({courseName: this.state.courseName, creatorEmail: this.props.email});
+    courseRef.update({courseName: this.state.courseName, creatorEmail: this.props.email, courseCode: this.state.courseCode});
     event.preventDefault();
 }
 

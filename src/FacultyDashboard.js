@@ -4,6 +4,7 @@ import Button from '@material-ui/core/Button';
 import CourseForm from './CourseForm';
 import QuizForm from './QuizForm';
 import firebase from './firebaseConfig';
+import Skipper from './Skipper';
 
 var database = firebase.database()
 
@@ -32,6 +33,7 @@ class FacultyDashboard extends PureComponent {
       <div>
         <h1>Welcome, {this.props.name}</h1>
         <h2>Faculty Dashboard</h2>
+        {/* <Skipper /> */}
         <Button variant="contained" color="primary" onClick={this.createCourse}>Add Course</Button>
         <CourseForm email={this.props.email} />
         <QuizForm />

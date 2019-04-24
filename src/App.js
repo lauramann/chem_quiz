@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import withFirebaseAuth from 'react-with-firebase-auth'
 import firebase from './firebaseConfig';
-import './App.css';
+import './styling/App.css';
 import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
 import FacultyDashboard from './FacultyDashboard';
 import StudentDashboard from './StudentDashboard';
-import "./App.css";
+import './styling/App.css';
+import Avatar from '@material-ui/core/Avatar';
 
 const firebaseAppAuth = firebase.auth();
 const providers = {
@@ -60,16 +61,21 @@ class App extends Component {
       this.writeUserData(this.props.user.email)
       return (
         <div>
+          <Avatar alt="Remy Sharp" src={this.props.user.photoURL} className="avatar"/>
+          <div id="signoutButton">
           <Button variant="contained" color="primary" onClick={this.props.signOut}>Sign out</Button>
+          </div>
           {this.state.isFaculty === true
           ? <FacultyDashboard name={this.props.user.displayName} email={this.props.user.email.split('@')[0]} /> 
-          : <StudentDashboard name={this.props.user.displayName} username={this.props.user.email.split('@')[0]} />}
+          : <StudentDashboard name={this.props.user.displayName} img={this.props.user.photoURL} username={this.props.user.email.split('@')[0]} />}
         </div>
       );
     }
     else {
       this.props.signOut()
-      return (<Button variant="contained" color="primary" onClick={this.props.signInWithGoogle}>Sign in with Google</Button>)
+      return (<div id="signinButton">
+        <Button variant="contained" color="primary" onClick={this.props.signInWithGoogle}>Sign in with Google</Button>
+        </div>)
 
     }
   }
@@ -85,11 +91,12 @@ class App extends Component {
         <header className="App-header">
           {
             user
-              ? <p></p> : <p>Please sign in.</p>
+              ? <p></p> : <p className="signinNote">Please sign in.</p>
           }
-          {
+          <div>{
             this.verifyUser()
           }
+          </div>
         </header>
       </div>
 

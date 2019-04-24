@@ -59,7 +59,10 @@ class QuizForm extends PureComponent {
                 0: this.state.wrong1,
                 1: this.state.wrong2,
                 2: this.state.wrong3
-            }
+            }, 
+            wrong1: this.state.wrong1,
+            wrong2: this.state.wrong2,
+            wrong3: this.state.wrong3
         })
 
         this.setState({ quiz: quest })

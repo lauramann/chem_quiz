@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import "./Login.css";
+import './styling/Login.css';
 
 class Login extends PureComponent {
   render() {

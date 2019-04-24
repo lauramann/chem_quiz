@@ -10,6 +10,8 @@ import CardContent from '@material-ui/core/CardContent';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import Quiz from './Quiz';
+import './styling/studentDashboard.css'
+
 
 let database = firebase.database()
 let usersRef = database.ref("users")
@@ -65,7 +67,7 @@ class StudentDashboard extends PureComponent {
   }
 
   handleQuiz(quiz) {
-    this.setState({quiz: quiz})
+    this.setState({ quiz: quiz })
     // console.log(quiz)
     // let userRef = usersRef.child(this.props.username)
     // if(this.state.courseCode != '') {
@@ -80,17 +82,17 @@ class StudentDashboard extends PureComponent {
     //     let addedQuiz = quiz
     //     quizzes.push(addedQuiz);
 
-      // userRef.once('value', function (snapshot) {
-      //   if (!snapshot.hasChild('courses')) {
-      //     userRef.update({quizzes: {quiz}});
-      //   }
-      // });
+    // userRef.once('value', function (snapshot) {
+    //   if (!snapshot.hasChild('courses')) {
+    //     userRef.update({quizzes: {quiz}});
+    //   }
+    // });
 
-      // let quizzesRef = database.ref("courses/" + this.state.courseCode)
-      //   let quizzes = quizzesRef.child('quizzes')
-      //   let finalQuiz = quiz
-      //   quizzes.push(finalQuiz);
-    
+    // let quizzesRef = database.ref("courses/" + this.state.courseCode)
+    //   let quizzes = quizzesRef.child('quizzes')
+    //   let finalQuiz = quiz
+    //   quizzes.push(finalQuiz);
+
   }
 
   showCourses(chosenCourse) {
@@ -110,7 +112,7 @@ class StudentDashboard extends PureComponent {
         <div>
           <h2>{courseObj.courseCode}: {courseObj.courseName}</h2>
           {Object.values(courseObj.quizzes).map((quiz, i) => (
-            
+
             <Card>
               <CardContent>
                 <Typography variant="h5" component="h2">
@@ -131,9 +133,15 @@ class StudentDashboard extends PureComponent {
   render() {
     return (
       <div>
-
-        <h1>Welcome, {this.props.name}</h1>
-        <h2>Student Dashboard</h2>
+        <h1 className="dashboard">Dashboard</h1>
+        <div className="wrapper">
+          {/* <div className="student-head"> */}
+            
+            <h2>Welcome, {this.props.name}</h2>
+          {/* </div> */}
+        </div>
+        <div className="student-main">
+        <div className="select">
         <InputLabel>Select a Course</InputLabel>
         <Select
           id="course"
@@ -147,8 +155,10 @@ class StudentDashboard extends PureComponent {
           {this.state.coursesArray.map((course) =>
             <MenuItem key={course} value={course}>{course}</MenuItem>)}
         </Select>
+        </div>
         {this.showCourses(this.state.courseCode)}
         {this.state.quiz != null ? <Quiz quiz={this.state.quiz} user={this.props.username} /> : console.log()}
+        </div>
       </div>
     );
   }
