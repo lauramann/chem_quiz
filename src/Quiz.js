@@ -15,7 +15,7 @@ class Quiz extends PureComponent {
         this.state = ({
             userAnswers: 0,
             prevIndex: -1,
-            right: false
+            questionsSize: 0,
         })
     }
 
@@ -27,8 +27,12 @@ class Quiz extends PureComponent {
         if (quizVals[i].answer == selected) {
             console.log("right!")
             let num = i+1
-            console.log(document.getElementById("question" + num))
-            document.getElementById("question" + num).style.display = "block";
+            // console.log(document.getElementById("question" + num))
+            console.log(this.state.questionsSize)
+            console.log(num)
+            if(num<this.state.questionsSize)
+                document.getElementById("question" + num).style.display = "block";
+            else(console.log("end of questions"))
         }
         else console.log("wrong!")
     }
@@ -82,9 +86,10 @@ class Quiz extends PureComponent {
         console.log(this.props.user)
         const q = Object.values(this.props.quiz)
         const questions = []
-        for (let i = 0; i < q.length; i++) {
+        for (let i = 0; i < q.length-1; i++) {
             questions.push(q[i])
         }
+        this.setState({questionsSize: questions.length})
 
         return (
             <div>
