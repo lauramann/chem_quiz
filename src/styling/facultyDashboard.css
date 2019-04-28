@@ -1,0 +1,47 @@
+.faculty-main {
+    background-color: #D1B6D9;
+    margin: 10px 20px 10px 20px;
+    padding: 20px;
+    border-radius: 7px;
+    min-height: 300px;
+    min-width: 700px;
+}
+
+.dashboard {
+    font-weight: 500;
+}
+
+.wrapper h2 {
+    font-weight: 400;
+}
+
+.wrapper {
+    margin-left: 30px;
+}
+
+.create-course {
+    float: left;
+    margin-left: 30%;
+}
+
+.create-question {
+    float: right;
+    margin-right: 30%;
+}
+
+.create-course Button, .create-question Button {
+    font-size: 20px;
+    background-color: white;
+    font-family: roboto;
+    color: black;
+    border-radius: 10px;
+}
+
+.create-course Button:hover, .create-question Button:hover {
+    background-color: lightgrey;
+}
+
+.button-text {
+    padding-left: 10px;
+    margin: 0;
+}

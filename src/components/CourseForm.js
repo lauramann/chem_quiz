@@ -3,7 +3,8 @@ import React, { PureComponent } from "react";
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
-import firebase from './firebaseConfig';
+import firebase from '../firebaseConfig';
+import '../styling/courseform.css';
 
 var database = firebase.database()
 var coursesRef = database.ref("courses");

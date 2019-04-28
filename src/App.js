@@ -4,8 +4,8 @@ import firebase from './firebaseConfig';
 import './styling/App.css';
 import 'typeface-roboto';
 import Button from '@material-ui/core/Button';
-import FacultyDashboard from './FacultyDashboard';
-import StudentDashboard from './StudentDashboard';
+import FacultyDashboard from './components/FacultyDashboard';
+import StudentDashboard from './components/StudentDashboard';
 import './styling/App.css';
 import Avatar from '@material-ui/core/Avatar';
 
@@ -98,6 +98,12 @@ class App extends Component {
           }
           </div>
         </header>
+      {/* <FacultyDashboard /> */}
+
+
+        {/* <footer className="App-footer">
+        <p>Laura Mann, 2019</p>
+        </footer> */}
       </div>
 
     );

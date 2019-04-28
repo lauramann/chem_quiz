@@ -1,6 +1,5 @@
 import React, { PureComponent } from "react";
-// import Button from '@material-ui/core/Button';
-import firebase from './firebaseConfig';
+import firebase from '../firebaseConfig';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
@@ -14,9 +13,9 @@ import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import IconButton from '@material-ui/core/IconButton';
-import './styling/studentDashboard.css'
+import '../styling/studentDashboard.css'
 import { withStyles } from '@material-ui/core/styles';
+import '../styling/facultyDashboard.css';
 
 const DialogTitle = withStyles(theme => ({
   root: {
@@ -163,7 +162,7 @@ class StudentDashboard extends PureComponent {
   render() {
     return (
       <div>
-        <h1 className="dashboard">Dashboard</h1>
+        <h1 className="dashboard">Student Dashboard</h1>
         <div className="wrapper">
           {/* <div className="student-head"> */}
             
