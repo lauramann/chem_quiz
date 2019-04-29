@@ -19,7 +19,6 @@ class FacultyDashboard extends PureComponent {
       courseCode: '',
       courseName: '',
       submit: true, 
-      modal: ''
 
     }
     this.showCourses = this.showCourses.bind(this);
@@ -47,9 +46,8 @@ class FacultyDashboard extends PureComponent {
   }
 
   handleClickOpen(event) {
-    console.log(event.target.id)
-    this.setState({ open: true, modal: event.target.id });
-    console.log(this.state.modal)
+    this.setState({ modal: event.target.id });
+    this.setState({ open: true});
   };
 
   handleClose(event) {
@@ -86,7 +84,7 @@ class FacultyDashboard extends PureComponent {
               </CardContent>
               {'quizzes' in course ? 
               <CardActions>
-                <Button onClick={console.log("clicked")}>See Quizzes</Button>
+                <Button onClick={console.log("clicked")}>{Object.keys(course.quizzes).length > 1 ? Object.keys(course.quizzes).length +  " Quizzes" : Object.keys(course.quizzes).length +  " Quiz"}</Button>
               </CardActions>
               : <CardActions>
               <Button disabled="true" onClick={console.log()}>No Quizzes</Button>
@@ -109,7 +107,7 @@ class FacultyDashboard extends PureComponent {
         </div>
         <div className="faculty-main">
           <div className="create-course">
-            <Fab id="createCourse" onClick={((e) => this.handleClickOpen(e))} variant="extended" aria-label="Delete" >
+            <Fab id="createCourse" onClick={((ev) => this.handleClickOpen(ev))} variant="extended" aria-label="Delete" >
 
               <AddCircle />
               <p className="button-text">Add Course</p>
@@ -124,12 +122,12 @@ class FacultyDashboard extends PureComponent {
 
             </Fab>
           </div>
-          {this.state.showQuizForm ? <QuizForm /> : console.log()}
+          {this.state.showQuizForm ? <QuizForm /> : null}
 
         </div>
         <h2 className="yourCourses" >Your Courses</h2>
         <div className="facultyCourses">
-        {Object.getOwnPropertyNames(this.state.courses).length > 0 ? this.showCourses() : console.log()}
+        {Object.getOwnPropertyNames(this.state.courses).length > 0 ? this.showCourses() : null}
 
         </div>
         <Dialog
@@ -137,7 +135,7 @@ class FacultyDashboard extends PureComponent {
           onClose={this.handleClose}
           aria-labelledby="form-dialog-title"
         >
-          <DialogTitle id="form-dialog-title">{this.state.modal == 'createCourse' ? "Add New Course" : "Create New Quiz"}</DialogTitle>
+          <DialogTitle id="form-dialog-title">{this.state.modal == 'createCourse' ? "Add New Course" : "Add New Quiz"}</DialogTitle>
           <DialogContent>
             {this.state.modal == 'createCourse' ?
             <form>
