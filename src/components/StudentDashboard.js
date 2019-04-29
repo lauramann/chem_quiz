@@ -1,21 +1,14 @@
 import React, { PureComponent } from "react";
 import firebase from '../firebaseConfig';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Quiz from './Quiz';
-import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import '../styling/studentDashboard.css'
-import { withStyles } from '@material-ui/core/styles';
 import '../styling/facultyDashboard.css';
+import {InputLabel, MenuItem, Select, Card, CardActions, CardContent, Typography,
+        Button, Dialog, withStyles}
+        from '@material-ui/core';
 
 const DialogTitle = withStyles(theme => ({
   root: {
@@ -118,7 +111,6 @@ class StudentDashboard extends PureComponent {
         }
       })
     }
-    // console.log(chosenCourse)
   }
 
   showCourses(chosenCourse) {
@@ -164,10 +156,8 @@ class StudentDashboard extends PureComponent {
       <div>
         <h1 className="dashboard">Student Dashboard</h1>
         <div className="wrapper">
-          {/* <div className="student-head"> */}
             
             <h2>Welcome, {this.props.name}</h2>
-          {/* </div> */}
         </div>
         <div className="student-main">
         <div className="select">
@@ -205,7 +195,6 @@ class StudentDashboard extends PureComponent {
             </Button>
           </DialogActions>
           </Dialog>
-        {/* {this.state.quiz != null ? <Quiz quiz={this.state.quiz} user={this.props.username} submitted="no" /> : console.log()} */}
         </div>
       </div>
     );
