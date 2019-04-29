@@ -1,17 +1,33 @@
 .faculty-main {
-    background-color: #D1B6D9;
+    background-color: #f3e3f7;
     margin: 10px 20px 10px 20px;
     padding: 20px;
     border-radius: 7px;
-    min-height: 300px;
+    min-height: 60px;
+    height: 60px;
     min-width: 700px;
+}
+
+.facultyCourses {
+    margin: 10px 0px 10px 20px;
+    padding: 20px;
+}
+
+.yourCourses {
+    margin-left: 30px;
+}
+
+#cards {
+    display: flex;
+    max-width: 2000px;
+    flex-wrap: wrap;
 }
 
 .dashboard {
     font-weight: 500;
 }
 
-.wrapper h2 {
+h2 {
     font-weight: 400;
 }
 
@@ -45,3 +61,27 @@
     padding-left: 10px;
     margin: 0;
 }
+
+/* button */
+/*     border-style: solid;
+    border-width: 2px;
+    border-color: #174636;
+    border-radius: 20px;
+    background-color: #174636; */
+
+    .course-card {
+        width: 250px;
+        height: 150px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        margin-right: 10px;
+        margin-left: 10px;
+        border-style: solid;
+        border-width: 2px;
+        border-color: #f3e3f7;
+        border-radius: 20px;
+    }
+
+    #card-font {
+        font-size: 18px;
+    }
