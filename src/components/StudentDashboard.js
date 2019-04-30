@@ -16,7 +16,7 @@ import '../styling/studentDashboard.css'
 let database = firebase.database()
 
 // StudentDashboard class
-// Displayed for students only
+// Displayed for students only (isFaculty==false)
 // Shows their courses and quizzes
 // ----------------------------------------------------------------------------------
 // state explanations:
