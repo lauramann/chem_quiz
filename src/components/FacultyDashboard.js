@@ -2,8 +2,7 @@ import React, { PureComponent } from "react";
 import QuizForm from './QuizForm';
 import firebase from '../firebaseConfig';
 import AddCircle from '@material-ui/icons/AddCircle';
-import {
-  Card, CardContent, CardActions, Typography, Button, Fab, Dialog,
+import { Card, CardContent, CardActions, Typography, Button, Fab, Dialog,
   DialogActions, DialogContent, DialogTitle, TextField
 } from '@material-ui/core';
 

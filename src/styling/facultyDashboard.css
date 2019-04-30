@@ -1,3 +1,7 @@
+h2 {
+    font-weight: 400;
+}
+
 .faculty-main {
     background-color: #f3e3f7;
     margin: 10px 20px 10px 20px;
@@ -17,7 +21,7 @@
     margin-left: 30px;
 }
 
-#cards {
+#cards, .wrapper {
     display: flex;
     max-width: 2000px;
     flex-wrap: wrap;
@@ -25,14 +29,6 @@
 
 .dashboard {
     font-weight: 500;
-}
-
-h2 {
-    font-weight: 400;
-}
-
-.wrapper {
-    margin-left: 30px;
 }
 
 .create-course {
@@ -62,26 +58,19 @@ h2 {
     margin: 0;
 }
 
-/* button */
-/*     border-style: solid;
+.course-card {
+    width: 250px;
+    height: 150px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    border-style: solid;
     border-width: 2px;
-    border-color: #174636;
+    border-color: #f3e3f7;
     border-radius: 20px;
-    background-color: #174636; */
+}
 
-    .course-card {
-        width: 250px;
-        height: 150px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        margin-right: 10px;
-        margin-left: 10px;
-        border-style: solid;
-        border-width: 2px;
-        border-color: #f3e3f7;
-        border-radius: 20px;
-    }
-
-    #card-font {
-        font-size: 18px;
-    }
+#card-font {
+    font-size: 18px;
+}

@@ -2,11 +2,6 @@
     display: inline-block;
 }
 
-.wrapper {
-    /* text-align: center; */
-    /* margin-top: -30px; */
-}
-
 .student-main {
     background-color: #BED9B6;
     margin: 10px 20px 10px 20px;
@@ -56,7 +51,6 @@
     height: 150px;
     max-width: 2000px;
     margin: 10px;
-    
 }
 
 .MuiDialog-paperWidthSm-116 {

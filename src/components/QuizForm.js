@@ -3,9 +3,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import firebase from '../firebaseConfig';
-import Select from '@material-ui/core/Select';
-import MenuItem from '@material-ui/core/MenuItem';
-import InputLabel from '@material-ui/core/InputLabel';
+import {Select, MenuItem, InputLabel} from '@material-ui/core';
 import '../styling/quizForm.css';
 
 // connect to database
