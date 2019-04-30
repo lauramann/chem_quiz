@@ -1,8 +1,5 @@
 import React, { PureComponent } from "react";
 import Button from '@material-ui/core/Button';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 class Quiz extends PureComponent {
     constructor(props) {
@@ -15,7 +12,7 @@ class Quiz extends PureComponent {
         this.state = ({
             userAnswers: 0,
             questionsSize: 0,
-            tempUserAnswers: 0
+            tempUserAnswers: 0,
         })
     }
 
@@ -46,7 +43,7 @@ class Quiz extends PureComponent {
             else{
                 (console.log("end of questions"))
                 console.log(this.state.userAnswers)
-                // document.getElementById("submit-button").style.display = "block";
+                document.getElementById("submit-button").style.display = "block";
             }
         }
         else {
@@ -60,7 +57,6 @@ class Quiz extends PureComponent {
     handleSubmit() {
         console.log(this.state.userAnswers)
         console.log("Submitted")
-
     }
 
     getOptions(question) {
@@ -69,7 +65,6 @@ class Quiz extends PureComponent {
         arr.push(question.wrong3)
         arr.push(question.answer)
         arr.push(question.wrong2)
-        // arr = this.shuffle(arr)
 
         return (arr)
     }
@@ -125,7 +120,7 @@ class Quiz extends PureComponent {
                         ))}
                     </div>
                 ))}
-                {/* {<Button id="submit-button" style={{display:"none"}} onClick={this.handleSubmit}>Submit</Button>} */}
+                {<Button id="submit-button" style={{display:"none"}} onClick={this.handleSubmit}>Submit</Button>}
 
             </div>
         );

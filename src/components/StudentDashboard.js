@@ -1,64 +1,29 @@
 import React, { PureComponent } from "react";
 import firebase from '../firebaseConfig';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import Select from '@material-ui/core/Select';
-import Card from '@material-ui/core/Card';
-import CardActions from '@material-ui/core/CardActions';
-import CardContent from '@material-ui/core/CardContent';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
 import Quiz from './Quiz';
-import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
-import '../styling/studentDashboard.css'
 import { withStyles } from '@material-ui/core/styles';
+import {InputLabel, MenuItem, Select, Card, CardActions, 
+        CardContent, Typography, Button, Dialog} from '@material-ui/core';
 import '../styling/facultyDashboard.css';
+import '../styling/studentDashboard.css'
 
-const DialogTitle = withStyles(theme => ({
-  root: {
-    borderBottom: `1px solid ${theme.palette.divider}`,
-    margin: 0,
-    padding: theme.spacing.unit * 2,
-  },
-  closeButton: {
-    position: 'absolute',
-    right: theme.spacing.unit,
-    top: theme.spacing.unit,
-    color: theme.palette.grey[500],
-  },
-}))(props => {
-  const { children, classes, onClose } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        console.log("close")
-      ) : null}
-    </MuiDialogTitle>
-  );
-});
-
-const DialogContent = withStyles(theme => ({
-  root: {
-    margin: 0,
-    padding: theme.spacing.unit * 2,
-  },
-}))(MuiDialogContent);
-
-const DialogActions = withStyles(theme => ({
-  root: {
-    borderTop: `1px solid ${theme.palette.divider}`,
-    margin: 0,
-    padding: theme.spacing.unit,
-  },
-}))(MuiDialogActions);
-
+// connect to database
 let database = firebase.database()
-let usersRef = database.ref("users")
 
+// StudentDashboard class
+// Displayed for students only
+// Shows their courses and quizzes
+// ----------------------------------------------------------------------------------
+// state explanations:
+//    courses: object -> courses from the database
+//    coursesArray: array -> array of courses values (so we can use map() function)
+//    courseCode: string -> example: COIS 2020
+//    quiz: object -> quiz selected by student, passed to <Quiz /> component
+//    open: bool -> determines whether dialog is open or closed
+// ----------------------------------------------------------------------------------
 class StudentDashboard extends PureComponent {
   constructor(props) {
     super(props);
@@ -70,16 +35,21 @@ class StudentDashboard extends PureComponent {
       quiz: null,
       open: false
     }
+
+    // declare methods
     this.showCourses = this.showCourses.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleClickOpen = this.handleClickOpen.bind(this);
   }
 
+  // gets courses data from db
+  // prevents calling state in an infinite loop
   componentDidMount() {
     let coursesRef = database.ref("courses")
     coursesRef.on("value", this.gotOne);
   }
 
+  // sets state to courses data from db
   gotOne(data) {
     let coursesArray = Object.keys(data.val())
     this.setState({
@@ -88,6 +58,7 @@ class StudentDashboard extends PureComponent {
     })
   }
 
+  // opens dialog, and sets quiz to the selected quiz to start
   handleClickOpen(quiz) {
     this.setState({
       open: true,
@@ -95,29 +66,30 @@ class StudentDashboard extends PureComponent {
     });
   };
 
+  // closes dialog
   handleClose = () => {
     this.setState({ open: false });
   };
 
+  // handles when user selects a course
   handleChange(event) {
     let changeObj = {}
-    let individualCourses = Object.values(this.state.courses)
-    let chosen = event.target.value
     let chosenCourse = {}
+    let individualCourses = Object.values(this.state.courses)
+    
+    // value will be the course code
+    let chosen = event.target.value
+    
+    // if selected class has an id attribute
     if (event.target.id) {
       changeObj[event.target.id] = event.target.value
     }
+    // otherwise use name attribute
     else changeObj[event.target.name] = event.target.value
 
+    // this will automatically set the state of the courseCode to be the value
+    // example: changeObj = {courseCode: 'PHYS 2093'}
     this.setState(changeObj);
-
-    if (individualCourses != undefined) {
-      individualCourses.map((course) => {
-        if (course.courseCode == chosen) {
-          chosenCourse = course
-        }
-      })
-    }
   }
 
   showCourses(chosenCourse) {
@@ -198,12 +170,11 @@ class StudentDashboard extends PureComponent {
             {this.state.quiz ? this.state.quiz.name: ""}
           </DialogTitle>
           <DialogContent>
-            
           <Quiz quiz={this.state.quiz} user={this.props.username} submitted="no" />
           </DialogContent>
           <DialogActions>
             <Button onClick={this.handleClose} color="primary">
-              Submit
+              Cancel
             </Button>
           </DialogActions>
           </Dialog>
@@ -213,3 +184,44 @@ class StudentDashboard extends PureComponent {
   }
 }
 export default StudentDashboard;
+
+// styling for dialog (quiz), taken from Google's Material UI
+// https://material-ui.com/demos/dialogs/
+const DialogTitle = withStyles(theme => ({
+  root: {
+    borderBottom: `1px solid ${theme.palette.divider}`,
+    margin: 0,
+    padding: theme.spacing.unit * 2,
+  },
+  closeButton: {
+    position: 'absolute',
+    right: theme.spacing.unit,
+    top: theme.spacing.unit,
+    color: theme.palette.grey[500],
+  },
+}))(props => {
+  const { children, classes, onClose } = props;
+  return (
+    <MuiDialogTitle disableTypography className={classes.root}>
+      <Typography variant="h6">{children}</Typography>
+      {onClose ? (
+        console.log("close")
+      ) : null}
+    </MuiDialogTitle>
+  );
+});
+
+const DialogContent = withStyles(theme => ({
+  root: {
+    margin: 0,
+    padding: theme.spacing.unit * 2,
+  },
+}))(MuiDialogContent);
+
+const DialogActions = withStyles(theme => ({
+  root: {
+    borderTop: `1px solid ${theme.palette.divider}`,
+    margin: 0,
+    padding: theme.spacing.unit,
+  },
+}))(MuiDialogActions);
