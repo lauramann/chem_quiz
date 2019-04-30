@@ -5,8 +5,10 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import { withStyles } from '@material-ui/core/styles';
-import {InputLabel, MenuItem, Select, Card, CardActions, 
-        CardContent, Typography, Button, Dialog} from '@material-ui/core';
+import {
+  InputLabel, MenuItem, Select, Card, CardActions,
+  CardContent, Typography, Button, Dialog
+} from '@material-ui/core';
 import '../styling/facultyDashboard.css';
 import '../styling/studentDashboard.css'
 
@@ -76,10 +78,10 @@ class StudentDashboard extends PureComponent {
     let changeObj = {}
     let chosenCourse = {}
     let individualCourses = Object.values(this.state.courses)
-    
+
     // value will be the course code
     let chosen = event.target.value
-    
+
     // if selected class has an id attribute
     if (event.target.id) {
       changeObj[event.target.id] = event.target.value
@@ -92,12 +94,12 @@ class StudentDashboard extends PureComponent {
     this.setState(changeObj);
   }
 
+  // shows course chosen and quizzes available
   showCourses(chosenCourse) {
     let individualCourses = Object.values(this.state.courses)
     let courseObj = null
 
-    console.log(chosenCourse)
-
+    // set courseObj to the course object that was chosen (based on courseCode)
     if (individualCourses != undefined) {
       individualCourses.map((course) => {
         if (course.courseCode == chosenCourse) {
@@ -105,34 +107,35 @@ class StudentDashboard extends PureComponent {
         }
       })
     }
-    console.log(courseObj)
 
+    // display course information and quizzes available
     if (courseObj != null) {
       return (
         <div>
           <h2>{courseObj.courseCode}: {courseObj.courseName}</h2>
           <div id="cards">
-          {"quizzes" in courseObj ? Object.values(courseObj.quizzes).map((quiz, i) => (
+            {/* If course has quizzes, loop through and display each one in a card */}
+            {"quizzes" in courseObj ? Object.values(courseObj.quizzes).map((quiz, i) => (
 
-            <Card className="quiz-card">
-              <CardContent>
-                <Typography variant="h5" component="h2">
-                  {quiz.name}
-                </Typography>
-              </CardContent>
-              <CardActions>
-                <Button onClick={() => this.handleClickOpen(quiz)}>Start Quiz</Button>
-              </CardActions>
-            </Card>
-            
-          ))
-          : <p>No Quizzes</p>
-           }
+              <Card className="quiz-card">
+                <CardContent>
+                  <Typography variant="h5" component="h2">
+                    {quiz.name}
+                  </Typography>
+                </CardContent>
+                <CardActions>
+                  <Button onClick={() => this.handleClickOpen(quiz)}>Start Quiz</Button>
+                </CardActions>
+              </Card>
+
+            ))
+              // Otherwise display No Quizzes
+              : <p>No Quizzes</p>
+            }
           </div>
         </div>
       )
     }
-
   }
 
   render() {
@@ -140,43 +143,51 @@ class StudentDashboard extends PureComponent {
       <div>
         <h1 className="dashboard">Student Dashboard</h1>
         <div className="wrapper">
-            
-            <h2>Welcome, {this.props.name}</h2>
+          <h2>Welcome, {this.props.name}</h2>
         </div>
         <div className="student-main">
-        <div className="select">
-        <InputLabel className="select-label">Select a Course</InputLabel>
-        <Select
-        className="drop-down"
-          id="course"
-          value={this.state.courseCode}
-          onChange={this.handleChange}
-          inputProps={{
-            name: 'courseCode',
-            id: 'course-code',
-          }}
-        >
-          {this.state.coursesArray.map((course) =>
-            <MenuItem key={course} value={course}>{course}</MenuItem>)}
-        </Select>
-        </div>
-        {this.state.courseCode != '' ? this.showCourses(this.state.courseCode): null}
-        <Dialog
+
+          {/* Select a course to see quizzes */}
+          <div className="select">
+            <InputLabel className="select-label">Select a Course</InputLabel>
+            <Select
+              className="drop-down"
+              id="course"
+              value={this.state.courseCode}
+              onChange={this.handleChange}
+              inputProps={{
+                name: 'courseCode',
+                id: 'course-code',
+              }}
+            >
+              {/* Display all courses to choose from */}
+              {this.state.coursesArray.map((course) =>
+                <MenuItem key={course} value={course}>{course}</MenuItem>)}
+            </Select>
+          </div>
+
+          {/* If a courseCode has been selected, show the courses */}
+          {this.state.courseCode != '' ? this.showCourses(this.state.courseCode) : null}
+
+          {/* Dialog opens when this.state.open is set to tue (handleClickOpen) */}
+          <Dialog
             onClose={this.handleClose}
             aria-labelledby="customized-dialog-title"
             open={this.state.open}
           >
-          <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
-            {this.state.quiz ? this.state.quiz.name: ""}
-          </DialogTitle>
-          <DialogContent>
-          <Quiz quiz={this.state.quiz} user={this.props.username} submitted="no" />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={this.handleClose} color="primary">
-              Cancel
+            <DialogTitle id="customized-dialog-title" onClose={this.handleClose}>
+              {/* If the quiz has been set, show the name */}
+              {this.state.quiz ? this.state.quiz.name : ""}
+            </DialogTitle>
+            <DialogContent>
+              {/* Calls Quiz component, passes quiz, username, and submitted as props */}
+              <Quiz quiz={this.state.quiz} user={this.props.username} submitted="no" />
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={this.handleClose} color="primary">
+                Cancel
             </Button>
-          </DialogActions>
+            </DialogActions>
           </Dialog>
         </div>
       </div>
@@ -204,9 +215,6 @@ const DialogTitle = withStyles(theme => ({
   return (
     <MuiDialogTitle disableTypography className={classes.root}>
       <Typography variant="h6">{children}</Typography>
-      {onClose ? (
-        console.log("close")
-      ) : null}
     </MuiDialogTitle>
   );
 });
