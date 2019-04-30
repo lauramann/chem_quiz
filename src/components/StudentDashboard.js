@@ -1,14 +1,21 @@
 import React, { PureComponent } from "react";
 import firebase from '../firebaseConfig';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
+import Card from '@material-ui/core/Card';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
+import Button from '@material-ui/core/Button';
 import Quiz from './Quiz';
+import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import MuiDialogActions from '@material-ui/core/DialogActions';
 import '../styling/studentDashboard.css'
+import { withStyles } from '@material-ui/core/styles';
 import '../styling/facultyDashboard.css';
-import {InputLabel, MenuItem, Select, Card, CardActions, CardContent, Typography,
-        Button, Dialog, withStyles}
-        from '@material-ui/core';
 
 const DialogTitle = withStyles(theme => ({
   root: {
@@ -117,6 +124,8 @@ class StudentDashboard extends PureComponent {
     let individualCourses = Object.values(this.state.courses)
     let courseObj = null
 
+    console.log(chosenCourse)
+
     if (individualCourses != undefined) {
       individualCourses.map((course) => {
         if (course.courseCode == chosenCourse) {
@@ -124,13 +133,14 @@ class StudentDashboard extends PureComponent {
         }
       })
     }
+    console.log(courseObj)
 
     if (courseObj != null) {
       return (
         <div>
           <h2>{courseObj.courseCode}: {courseObj.courseName}</h2>
-          <div  id="cards">
-          {Object.values(courseObj.quizzes).map((quiz, i) => (
+          <div id="cards">
+          {"quizzes" in courseObj ? Object.values(courseObj.quizzes).map((quiz, i) => (
 
             <Card className="quiz-card">
               <CardContent>
@@ -143,7 +153,9 @@ class StudentDashboard extends PureComponent {
               </CardActions>
             </Card>
             
-          ))}
+          ))
+          : <p>No Quizzes</p>
+           }
           </div>
         </div>
       )
@@ -176,7 +188,7 @@ class StudentDashboard extends PureComponent {
             <MenuItem key={course} value={course}>{course}</MenuItem>)}
         </Select>
         </div>
-        {this.showCourses(this.state.courseCode)}
+        {this.state.courseCode != '' ? this.showCourses(this.state.courseCode): null}
         <Dialog
             onClose={this.handleClose}
             aria-labelledby="customized-dialog-title"
